@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shorten.shortening.repository.UrlMapper">
+    
+    <!-- Create -->
+    <insert id="insert" parameterType="Shortening">
+        INSERT `shortening`(`originUrl`,`regDate`)
+        VALUE (#{originUrl}, #{regDate});
+       <selectKey resultType="BigInteger" keyProperty="idx" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+    </insert>
+
+    <!-- Read -->
+    <select id="get" parameterType="Shortening" resultType="Shortening">
+        SELECT  `idx`,
+                `originUrl`,
+                `regDate`
+        FROM    `shortening`
+        <where>
+            <if test="originUrl != null and originUrl != ''">
+                AND `originUrl` = #{originUrl}
+            </if> 
+             <if test="idx >= 0 and idx != null">
+                AND `idx` = #{idx}
+            </if> 
+        </where>
+        LIMIT 1
+    </select>
+</mapper>
