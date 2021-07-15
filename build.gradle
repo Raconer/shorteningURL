@@ -1,0 +1,61 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.shortening'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+
+}
+
+dependencies {
+	// Spring Boot 
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	// Find View (JSP File)
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	
+	// JSTL
+	implementation("javax.servlet:jstl")
+
+	// Dev Tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'org.apache.commons:commons-lang3:3.11'
+
+	// Mysql, Hikaricp 
+	implementation 'mysql:mysql-connector-java:8.0.22'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+	implementation 'com.zaxxer:HikariCP:4.0.3'
+	
+	
+	// Query LOG 
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.2'
+
+}
+
+test {
+	useJUnitPlatform()
+}
